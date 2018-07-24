@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import LEDRGB as LED
+from getpass import getpass
 import time
 import random
 
@@ -23,6 +24,8 @@ sounds = [220,311.13,440,662.25]
 seq = []
 seqS = []
 
+Cont = True
+
 def rand():
 	n = random.randint(0,len(colors)-1)
 	seq.append(colors[n])
@@ -30,7 +33,7 @@ def rand():
 
 if __name__ == '__main__':
 	try:
-		while True:
+		while Cont:
 			n = rand()
 			for i in range(len(seq)):
 				LED.setColor(seq[i])
@@ -40,9 +43,21 @@ if __name__ == '__main__':
 
 				LED.noColor()
 				Buzz.stop()
-				time.sleep(.25)
-			time.sleep(.75)
-	except KeyboardInterrupt:
-		LED.noColor()
-		LED.destroy()
-		print "Good Bye"
+				if i < len(seq)-1:
+					time.sleep(.25)
+			
+			#user input
+			c = getpass("level " + str(len(seq)))
+			if not c.upper() == ''.join(seq):
+				print "INCORRECT\n"
+				print "your guess was:", ', '.join(list(c.upper()))
+				print "\nThe correct sequence was:", ', '.join(seq)
+				print "\nYou made it to level", len(seq)
+				Cont = False
+				break
+		#
+	except:
+		print "\nGood Bye"
+
+LED.noColor()
+LED.destroy()
