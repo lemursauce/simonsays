@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 import random
-import math
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -19,7 +18,7 @@ factor = 2.0**(1.0/12)
 try:
 	while True:
 		print frequency
-		Buzz.ChangeFrequency(frequency)
+		Buzz.ChangeFrequency(int(frequency))
 		Buzz.start(50)
 		time.sleep(0.15)
 		Buzz.stop()

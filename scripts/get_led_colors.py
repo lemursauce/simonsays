@@ -2,8 +2,7 @@ import RPi.GPIO as GPIO
 import LEDRGB as LED
 import time
 import random
-# this script blinks one of four random colors on the RGB LED
-# colors are R = red, G = green, B = blue, and Y = yellow
+
 colors = ['M', 'R', 'G', 'C', 'B', 'Y']
 R_pin = 11
 G_pin = 12
