@@ -26,6 +26,8 @@ seqS = []
 
 Cont = True
 
+rate = 0.25
+
 def rand():
 	n = random.randint(0,len(colors)-1)
 	seq.append(colors[n])
@@ -33,18 +35,28 @@ def rand():
 
 if __name__ == '__main__':
 	try:
+		#game difficulty
+		diff = raw_input("What difficulty do you choose? (E = easy, M = medium, H = hard, U = Ultra hard)\n").upper()
+		if diff == 'E':
+			rate = 0.5
+		elif diff == 'H':
+			rate = 0.1
+		elif diff == 'U':
+			rate = 0.01
+		
+		#actual game
 		while Cont:
 			n = rand()
 			for i in range(len(seq)):
 				LED.setColor(seq[i])
 				Buzz.ChangeFrequency(seqS[i])
 				Buzz.start(50)
-				time.sleep(.25)
+				time.sleep(rate)
 
 				LED.noColor()
 				Buzz.stop()
 				if i < len(seq)-1:
-					time.sleep(.25)
+					time.sleep(rate)
 			
 			#user input
 			c = getpass("level " + str(len(seq)))
